@@ -17,28 +17,27 @@ namespace BugTrackingSystem.Controllers
         public ProjectsController()
         {
             unitOfWork = new ProductProjectUserUnit(new ApplicationDbContext());
-
         }
 
         // GET: Projects
         public ActionResult Index()
         {
-            return View(unitOfWork.Projects.GetAll());
+            return View(unitOfWork.Projects.GetAll("Manager", "Product"));
         }
 
         // GET: Projects/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            return View(unitOfWork.Projects.GetByID(id));
         }
 
         // GET: Projects/Create
         public ActionResult Create()
         {
-            var model = new CreateProjectViewModel()
+            var model = new EditProjectViewModel()
             {
                 AvailableManagers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList(),
-                AvailableProducts = unitOfWork.Projects.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }).ToList()
+                AvailableProducts = unitOfWork.Products.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }).ToList()
             };
 
             return View(model);
@@ -46,11 +45,15 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Projects/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(EditProjectViewModel newProject)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    unitOfWork.Projects.Insert(newProject);
+                    unitOfWork.SaveChanges();
+                }
 
                 return RedirectToAction("Index");
             }
@@ -61,18 +64,28 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Projects/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var selectedProduct = unitOfWork.Projects.Single(x => x.Id == id);
+
+            var viewModel = new EditProjectViewModel(selectedProduct)
+            {
+                AvailableManagers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList(),
+                AvailableProducts = unitOfWork.Products.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }).ToList()
+            };
+
+            return View(viewModel);
         }
 
         // POST: Projects/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, EditProjectViewModel projectData)
         {
             try
             {
-                // TODO: Add update logic here
+                var toUpdate = unitOfWork.Projects.GetByID(id);
+                TryUpdateModel(toUpdate);
+                unitOfWork.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -83,18 +96,19 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Projects/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             return View();
         }
 
-        // POST: Projects/Delete/5
+        // DELETE: Projects/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                unitOfWork.Projects.Delete(id);
+                unitOfWork.SaveChanges();
 
                 return RedirectToAction("Index");
             }

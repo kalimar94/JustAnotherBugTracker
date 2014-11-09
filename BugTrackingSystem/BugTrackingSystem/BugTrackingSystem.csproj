@@ -160,27 +160,29 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Membership\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\CreateProjectViewModel.cs" />
+    <Compile Include="Models\EditProductViewModel.cs" />
+    <Compile Include="Models\EditProjectViewModel.cs" />
     <Compile Include="Models\Enums\Priority.cs" />
     <Compile Include="Models\Enums\Severity.cs" />
     <Compile Include="Models\Enums\Status.cs" />
     <Compile Include="Models\Repositories\Units\ProductProjectUserUnit.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Membership\User.cs" />
     <Compile Include="Models\Issues\Bug.cs" />
     <Compile Include="Models\Issues\Improvement.cs" />
     <Compile Include="Models\Issues\Issue.cs" />
     <Compile Include="Models\Issues\NewFeature.cs" />
     <Compile Include="Models\Issues\Story.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Membership\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Repositories\Repository.cs" />
@@ -249,10 +251,17 @@
     <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Projects\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
+    <Folder Include="Views\Issue\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

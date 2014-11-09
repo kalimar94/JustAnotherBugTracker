@@ -10,9 +10,11 @@ namespace BugTrackingSystem.Models
     public class Project
     {
         [Key]
+        [MaxLength(10)]
         public string Id { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string Name { get; set; }
 
         public string ManagerId { get; set; }
