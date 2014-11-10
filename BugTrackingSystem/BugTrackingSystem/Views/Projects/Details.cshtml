@@ -8,35 +8,43 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Project</h4>
+    <h4>Project: @Model.Id - @Model.Name</h4>
+    <span> Project Manager: @Model.Manager.UserName </span>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Manager.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Manager.Email)
-        </dd>
+    @if (Model.Issues == null || Model.Issues.Count == 0)
+    {
+        <p> There are no issues in this project </p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Name </th>
+                    <th> Type </th>
+                    <th> Assignee </th>
+                    <th> Priority </th>
+                </tr>
+            </thead>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Product.Name)
-        </dd>
+            @foreach (var issue in Model.Issues)
+            {
+                <tr>
+                    <td> @issue.Id </td>
+                    <td> @issue.Name </td>
+                    <td> @issue.GetType().Name </td>
+                    <td> @issue.Assignee.UserName </td>
+                    <td> @issue.Priority </td>
+                </tr>
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        </table>
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
-</div>
+    </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

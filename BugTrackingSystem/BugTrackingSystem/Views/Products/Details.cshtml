@@ -1,0 +1,25 @@
+﻿@model BugTrackingSystem.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product @Model.Id - @Model.Name </h2>
+@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+<hr />
+
+<div>
+    <h4> Projects: </h4>
+
+    <ul>
+        @foreach (var item in Model.Projects)
+        {
+            <li> @Html.ActionLink(string.Format("[{0}] {1}", item.Id, item.Name), "Details", "Projects", new { id = item.Id }, null) </li>
+        }
+    </ul>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
