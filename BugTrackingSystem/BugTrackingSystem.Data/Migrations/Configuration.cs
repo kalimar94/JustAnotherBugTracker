@@ -1,4 +1,4 @@
-namespace BugTrackingSystem.Migrations
+namespace BugTrackingSystem.Data.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -10,7 +10,6 @@ namespace BugTrackingSystem.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "BugTrackingSystem.Models.ApplicationDbContext";
         }
 
         protected override void Seed(BugTrackingSystem.Models.ApplicationDbContext context)

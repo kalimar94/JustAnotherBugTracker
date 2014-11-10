@@ -1,4 +1,5 @@
 ﻿using BugTrackingSystem.Models.Enums;
+using BugTrackingSystem.Models.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
