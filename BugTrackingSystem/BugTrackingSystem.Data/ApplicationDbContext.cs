@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using BugTrackingSystem.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
-namespace BugTrackingSystem.Models
+namespace BugTrackingSystem.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {

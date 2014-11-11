@@ -12,6 +12,8 @@
     <span> Project Manager: @Model.Manager.UserName </span>
     <hr />
 
+    @Html.ActionLink("Create Issue", "Create", "Issue")
+
     @if (Model.Issues == null || Model.Issues.Count == 0)
     {
         <p> There are no issues in this project </p>

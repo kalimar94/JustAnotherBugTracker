@@ -167,6 +167,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\EditIssueViewModel.cs" />
     <Compile Include="ViewModels\EditProductViewModel.cs" />
     <Compile Include="ViewModels\EditProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -246,6 +247,9 @@
     <Content Include="Views\Issue\Details.cshtml" />
     <Content Include="Views\Issue\Edit.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Issue\Partials\BugEditor.cshtml" />
+    <Content Include="Views\Issue\Partials\ImprovementEditor.cshtml" />
+    <Content Include="Views\Issue\Partials\FeatureEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,6 +22,9 @@ namespace BugTrackingSystem.Models
         [ForeignKey("AssigneeId")]
         public User Assignee { get; set; }
 
+        public string ProjectId { get; set; }
+
+        [ForeignKey("ProjectId")]
         public virtual Project Project { get; set; }
     }
 }

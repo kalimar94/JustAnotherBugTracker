@@ -6,21 +6,21 @@ using System.Web;
 
 namespace BugTrackingSystem.Data.Repositories.Units
 {
-    public class ProductProjectUserUnit : IDisposable
+    public class IssueProjectUserUnit : IDisposable
     {
         private ApplicationDbContext context;
 
         public Repository<Project> Projects { get; private set; }
 
-        public Repository<Product> Products { get; private set; }
+        public Repository<Issue> Issues { get; private set; }
 
         public Repository<User> Users { get; private set; }
 
-        public ProductProjectUserUnit(ApplicationDbContext context)
+        public IssueProjectUserUnit(ApplicationDbContext context)
         {
             this.context = context;
             this.Projects = new Repository<Project>(context);
-            this.Products = new Repository<Product>(context);
+            this.Issues = new Repository<Issue>(context);
             this.Users = new Repository<User>(context);
         }
 

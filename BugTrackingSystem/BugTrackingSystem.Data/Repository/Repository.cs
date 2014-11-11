@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace BugTrackingSystem.Models.Repositories
+namespace BugTrackingSystem.Data.Repositories
 {
     public class Repository<TEntity> : IEnumerable<TEntity>
         where TEntity : class
@@ -58,7 +58,6 @@ namespace BugTrackingSystem.Models.Repositories
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
-
 
         public IEnumerator<TEntity> GetEnumerator()
         {

@@ -1,5 +1,6 @@
-﻿using BugTrackingSystem.Models;
-using BugTrackingSystem.Models.Repositories.Units;
+﻿using BugTrackingSystem.Data;
+using BugTrackingSystem.Data.Repositories.Units;
+using BugTrackingSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
