@@ -1,4 +1,5 @@
-﻿using BugTrackingSystem.Models.Models;
+﻿using BugTrackingSystem.Models;
+using BugTrackingSystem.Models.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
