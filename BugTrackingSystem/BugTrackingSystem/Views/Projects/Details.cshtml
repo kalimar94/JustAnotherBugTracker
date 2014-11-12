@@ -9,7 +9,7 @@
 
 <div>
     <h4>Project: @Model.Id - @Model.Name</h4>
-    <span> Project Manager: @Model.Manager.UserName </span>
+    <span> Project Manager: @(Model.Manager==null?"None":Model.Manager.UserName) </span>
     <hr />
 
     @Html.ActionLink("Create Issue", "Create", "Issue")

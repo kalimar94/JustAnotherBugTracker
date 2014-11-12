@@ -29,7 +29,8 @@ namespace BugTrackingSystem.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(string id)
         {
-            return View(unitOfWork.Projects.GetByID(id));
+            var project = unitOfWork.Projects.GetAll("Issues").Single(x => x.Id == id);
+            return View(project);
         }
 
         // GET: Projects/Create
@@ -52,7 +53,7 @@ namespace BugTrackingSystem.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    unitOfWork.Projects.Insert(newProject);
+                    unitOfWork.Projects.Insert(newProject.Project);
                     unitOfWork.SaveChanges();
                 }
 
@@ -67,10 +68,11 @@ namespace BugTrackingSystem.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(string id)
         {
-            var selectedProduct = unitOfWork.Projects.Single(x => x.Id == id);
+            var selectedProject = unitOfWork.Projects.Single(x => x.Id == id);
 
-            var viewModel = new EditProjectViewModel(selectedProduct)
+            var viewModel = new EditProjectViewModel
             {
+                Project = selectedProject,
                 AvailableManagers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList(),
                 AvailableProducts = unitOfWork.Products.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }).ToList()
             };

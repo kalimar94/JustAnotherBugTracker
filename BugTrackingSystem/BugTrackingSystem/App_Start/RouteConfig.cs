@@ -14,23 +14,22 @@ namespace BugTrackingSystem
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Index",
-                url: "{controller}/{action}/",
-                defaults: new { controller = "Home", action = "Index" }
-            );
-
-            routes.MapRoute(
-                name: "Details",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Details" }
-            );
-
-            routes.MapRoute(
                 name: "IssueRoute",
                 url: "Projects/{projectId}/{action}/{issueId}",
                 defaults: new { controller = "Issue", action = "Details" }
             );
 
+            routes.MapRoute(
+                name: "IssueCreate",
+                url: "Projects/{projectId}/CreateIssue",
+                defaults: new { controller = "Issue", action = "Create" }
+            );
+
+            routes.MapRoute(
+                name: "Index",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

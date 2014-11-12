@@ -27,6 +27,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Product/Details/5
+        [NonAction]
         public ActionResult Details(string id)
         {
             return View(unitOfWork.Products.GetByID(id));
@@ -51,14 +52,15 @@ namespace BugTrackingSystem.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    unitOfWork.Products.Insert((Product)newProduct);
+                    unitOfWork.Products.Insert(newProduct.Product);
                     unitOfWork.SaveChanges();
                 }
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError(string.Empty, ex.Message);
                 return View();
             }
         }
@@ -68,8 +70,9 @@ namespace BugTrackingSystem.Controllers
         {
             var selectedProduct = unitOfWork.Products.Single(x => x.Id == id);
 
-            var viewModel = new EditProductViewModel(selectedProduct)
+            var viewModel = new EditProductViewModel
             {
+                Product = selectedProduct,
                 AvailableOwners = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id })
             };
 

@@ -4,21 +4,9 @@ using System.Web.Mvc;
 
 namespace BugTrackingSystem.ViewModels
 {
-    public class EditProductViewModel : Product
+    public class EditProductViewModel
     {
-        public EditProductViewModel() 
-        {
-
-        }
-
-        public EditProductViewModel(Product product)
-        {
-            this.Id = product.Id;
-            this.Name = product.Name;
-            this.OwnerId = product.OwnerId;
-            this.Owner = product.Owner;
-            this.Projects = product.Projects;
-        }
+        public Product Product { get; set; }
 
         public IEnumerable<SelectListItem> AvailableOwners { get; set; }
 

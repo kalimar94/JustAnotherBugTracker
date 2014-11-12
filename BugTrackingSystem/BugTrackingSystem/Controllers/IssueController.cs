@@ -46,7 +46,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Issue/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string projectId, FormCollection collection)
         {
             try
             {
@@ -59,25 +59,25 @@ namespace BugTrackingSystem.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex);
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return Create(projectId);
             }
         }
 
         // GET: Issue/Edit/5
-        public ActionResult Edit(string projectId, int id)
+        public ActionResult Edit(string projectId, int issueId)
         { 
             return View();
         }
 
         // POST: Issue/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int issueId, FormCollection collection)
         {
             try
             {
                 var viewModel = ParseForm(collection);
-                var issue = unitOfWork.Issues.Single(x => x.Id == id);
+                var issue = unitOfWork.Issues.Single(x => x.Id == issueId);
 
                 unitOfWork.Issues.Update(issue);
 
