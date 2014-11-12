@@ -25,8 +25,9 @@ namespace BugTrackingSystem
             );
 
             routes.MapRoute(
-               name: "IssueRoute",
-               url: "/Projects/{controller}/{action}/"
+                name: "IssueRoute",
+                url: "Projects/{projectId}/{action}/{issueId}",
+                defaults: new { controller = "Issue", action = "Index", id = UrlParameter.Optional }
             );
 
         }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Compare = System.Web.Mvc.CompareAttribute;
 
-namespace BugTrackingSystem.Models
+namespace BugTrackingSystem.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

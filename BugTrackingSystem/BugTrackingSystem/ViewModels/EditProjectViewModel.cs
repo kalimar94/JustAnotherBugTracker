@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using BugTrackingSystem.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace BugTrackingSystem.Models
+namespace BugTrackingSystem.ViewModels
 {
     public class EditProjectViewModel : Project
     {
