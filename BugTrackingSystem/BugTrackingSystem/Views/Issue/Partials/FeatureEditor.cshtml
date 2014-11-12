@@ -1,0 +1,10 @@
+﻿@model BugTrackingSystem.Models.Issues.NewFeature
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.AcceptanceCriteria, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.AcceptanceCriteria, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AcceptanceCriteria, "", new { @class = "text-danger" })
+    </div>
+</div>
