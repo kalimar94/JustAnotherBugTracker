@@ -1,4 +1,5 @@
 ﻿using BugTrackingSystem.Models;
+using BugTrackingSystem.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
@@ -12,6 +13,7 @@ namespace BugTrackingSystem.Data
 
         public DbSet<Issue> Issues { get; set; }
 
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -21,5 +23,7 @@ namespace BugTrackingSystem.Data
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }

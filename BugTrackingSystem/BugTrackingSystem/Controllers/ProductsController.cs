@@ -51,7 +51,7 @@ namespace BugTrackingSystem.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    unitOfWork.Products.Insert(newProduct);
+                    unitOfWork.Products.Insert((Product)newProduct);
                     unitOfWork.SaveChanges();
                 }
 

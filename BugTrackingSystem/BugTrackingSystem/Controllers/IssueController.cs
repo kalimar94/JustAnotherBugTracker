@@ -66,7 +66,7 @@ namespace BugTrackingSystem.Controllers
 
         // GET: Issue/Edit/5
         public ActionResult Edit(string projectId, int id)
-        {
+        { 
             return View();
         }
 
