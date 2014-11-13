@@ -12,7 +12,8 @@
     <span> Project Manager: @(Model.Manager==null?"None":Model.Manager.UserName) </span>
     <hr />
 
-    @Html.ActionLink("Create Issue", "Create", "Issue")
+    @Html.ActionLink("Create Issue", "Create", "Issue", new { projectId = ViewContext.RouteData.Values["id"] }, null)
+
 
     @if (Model.Issues == null || Model.Issues.Count == 0)
     {
@@ -37,7 +38,7 @@
                 <tr>
                     <td> @issue.Id </td>
                     <td> @issue.Name </td>
-                    <td> @issue.GetType().Name </td>
+                    <td> @issue.TypeName </td>
                     <td> @issue.Assignee.UserName </td>
                     <td> @issue.Priority </td>
                 </tr>

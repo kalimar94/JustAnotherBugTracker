@@ -160,7 +160,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\TicketsController.cs" />
     <Compile Include="Areas\ServiceDesk\ServiceDeskAreaRegistration.cs" />
-    <Compile Include="Areas\ServiceDesk\ViewModels\CreateTicketViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -259,9 +258,13 @@
     <Content Include="Views\Issue\Partials\BugEditor.cshtml" />
     <Content Include="Views\Issue\Partials\ImprovementEditor.cshtml" />
     <Content Include="Views\Issue\Partials\FeatureEditor.cshtml" />
+    <Content Include="Views\Issue\Partials\BugView.cshtml" />
+    <Content Include="Views\Issue\Partials\FeatureView.cshtml" />
+    <Content Include="Views\Issue\Partials\ImprovementView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\ServiceDesk\ViewModels\" />
     <Folder Include="Views\Comments\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>

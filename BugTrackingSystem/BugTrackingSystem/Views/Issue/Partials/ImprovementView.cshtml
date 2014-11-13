@@ -1,16 +1,7 @@
-﻿@using BugTrackingSystem.Models.Issues;
-
-@model BugTrackingSystem.Models.Issue
-
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Details</h2>
+﻿@model BugTrackingSystem.Models.Issues.Improvement
 
 <div>
-    <h4>Issue</h4>
+    <h4>Improvement</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,6 +10,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Assignee.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.Name)
         </dd>
 
         <dt>
@@ -45,11 +44,22 @@
             @Html.DisplayFor(model => model.Summary)
         </dd>
 
-        @if (Model is Bug) { @Html.Partial(@"Partials\BugView") }
-        else if (Model is Improvement) { @Html.Partial(@"Partials\ImproveentView") }
-        else if (Model is NewFeature) { @Html.Partial(@"Partials\FeatureView") }
-        else if (Model is Story) { @Html.Partial(@"Partials\BugView") }
-        else if (Model is Task) { @Html.Partial(@"Partials\BugView") }
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcceptanceCriteria)
+        </dd>
+
     </dl>
 </div>
 <p>

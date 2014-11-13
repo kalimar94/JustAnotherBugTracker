@@ -1,6 +1,7 @@
 ﻿namespace BugTrackingSystem.Models.Issues
 {
     using BugTrackingSystem.Models.Enums;
+    using BugTrackingSystem.Models.Models.Enums;
     using System.ComponentModel.DataAnnotations;
 
     public class Bug : Issue
@@ -14,5 +15,9 @@
 
         public string Resolution { get; set; }
 
+        public override IssueType TypeName
+        {
+            get { return IssueType.Bug; }
+        }
     }
 }

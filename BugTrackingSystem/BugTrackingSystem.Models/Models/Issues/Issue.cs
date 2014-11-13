@@ -26,5 +26,8 @@ namespace BugTrackingSystem.Models
 
         [ForeignKey("ProjectId")]
         public virtual Project Project { get; set; }
+
+        [NotMapped]
+        public abstract IssueType TypeName { get; }
     }
 }

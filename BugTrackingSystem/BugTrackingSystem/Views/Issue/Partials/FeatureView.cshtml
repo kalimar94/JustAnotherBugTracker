@@ -1,0 +1,19 @@
+﻿@model BugTrackingSystem.Models.Issues.NewFeature
+
+<div>
+    <h4>NewFeature</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcceptanceCriteria)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -3,12 +3,9 @@ using BugTrackingSystem.Data.Repositories.Units;
 using BugTrackingSystem.Models;
 using BugTrackingSystem.Models.Issues;
 using BugTrackingSystem.Models.Models.Enums;
-using BugTrackingSystem.Models.Models.Issues;
 using BugTrackingSystem.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BugTrackingSystem.Controllers
@@ -55,7 +52,7 @@ namespace BugTrackingSystem.Controllers
                 unitOfWork.Issues.Insert(issue);
 
                 unitOfWork.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Project", new { id = projectId });
             }
             catch (Exception ex)
             {

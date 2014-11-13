@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BugTrackingSystem.Models.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,5 +12,10 @@ namespace BugTrackingSystem.Models.Issues
 
         public string AcceptanceCriteria { get; set; }
 
+
+        public override IssueType TypeName
+        {
+            get { return IssueType.Improvement; }
+        }
     }
 }

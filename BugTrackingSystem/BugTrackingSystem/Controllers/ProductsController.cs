@@ -27,7 +27,6 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Product/Details/5
-        [NonAction]
         public ActionResult Details(string id)
         {
             return View(unitOfWork.Products.GetByID(id));
