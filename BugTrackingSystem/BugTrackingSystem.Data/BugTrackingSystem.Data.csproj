@@ -56,6 +56,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\Units\CommentUserUnit.cs" />
     <Compile Include="Repository\Units\IssueProjectUserUnit.cs" />
     <Compile Include="Repository\Units\ProductProjectUserUnit.cs" />
     <Compile Include="Repository\Units\ProductTicketUnit.cs" />

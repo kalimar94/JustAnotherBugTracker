@@ -52,11 +52,7 @@
         else if (Model is Task) { @Html.Partial(@"Partials\BugView") }
     </dl>
 
-
-     @Ajax.ActionLink("View comments", "View", "Comments", new AjaxOptions{
-            UpdateTargetId = "commentsSection",
-            HttpMethod = "GET"
-      });
+    <button id="viewComments" > View comments </button>
 
     <div id="commentsSection">  </div>
 
@@ -65,3 +61,27 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+@section Scripts
+{
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $("#viewComments").click(function () {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("View", "Comments", new { id = Model.Id })',
+            success: function (result) {
+                $("#commentsSection").html(result);
+            },
+            error: function (result) {
+                alert(result);
+            }
+        });
+    });
+
+</script>
+
+}

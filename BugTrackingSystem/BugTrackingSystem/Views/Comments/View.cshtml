@@ -10,33 +10,40 @@
         </p>
 
         @if (User.Identity.Name == comment.UserId)
-	    {
-		   @Ajax.ActionLink("Add comment", "Edit", new AjaxOptions
+        {
+            @Ajax.ActionLink("Add comment", "Edit", new AjaxOptions
             {
                 HttpMethod = "GET",
                 OnSuccess = "editComment"
             })
         }
-    </section> 
+    </section>
 }
 
-@Ajax.ActionLink("Add comment", "Create", new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "addComment"
-})
-
+<button id="createComment"> Create comment </button>
 <div id="addComment"> </div>
 
-@section Scripts
-{
-    <script type="text/javascript">
-        function editComment(data, status, xhr) {
-            alert(data);
-            alert(status);
-        }
-    </script>
-}
+<script type="text/javascript">
+    $("#createComment").click(function () {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Create", "Comments", new { id = ViewBag.IssueId })',
+            success: function (result) {
+                $("#addComment").html(result);
+            },
+            error: function (result) {
+                alert(result);
+            }
+        });
+    });
+
+    function editComment(data, status, xhr) {
+        alert(data);
+        alert(status);
+    }
+</script>
+
 
 
 
