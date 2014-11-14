@@ -1,6 +1,7 @@
 ﻿using BugTrackingSystem.Areas.ServiceDesk.ViewModels;
 using BugTrackingSystem.Data;
 using BugTrackingSystem.Data.Repositories;
+using BugTrackingSystem.Data.Repository.Units;
 using BugTrackingSystem.Models;
 using BugTrackingSystem.Models.Models;
 using System;
@@ -13,14 +14,12 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
 {
     public class TicketsController : Controller
     {
-        Repository<Ticket> ticketRepo;
-        Repository<User> usersRepo;
+        ProductTicketUnit unitOfWork;
 
         public TicketsController()
         {
-            var context = new ApplicationDbContext();
-            ticketRepo = new Repository<Ticket>(context);
-            usersRepo = new Repository<User>(context);
+            this.unitOfWork = new ProductTicketUnit(new ApplicationDbContext());
+
         }
 
         // GET: ServiceDesk/Ticket
@@ -32,7 +31,9 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
         // GET: ServiceDesk/Ticket/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var ticket = unitOfWork.Tickets.GetAll("RelatedProduct").Single(x => x.Id == id);
+
+            return View(ticket);
         }
 
         // GET: ServiceDesk/Ticket/Create
@@ -40,10 +41,10 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
         {
             var viewModel = new CreateTicketViewModel
             {
-                AvailableUsers = usersRepo.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id})
+                AvailableProducts = unitOfWork.Products.Select(x => new SelectListItem { Text = x.Name, Value = x.Id })
             };
 
-            return View();
+            return View(viewModel);
         }
 
         // POST: ServiceDesk/Ticket/Create
@@ -54,10 +55,11 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                               
+                    unitOfWork.Tickets.Insert(newTicket.Ticket);
+                    unitOfWork.SaveChanges();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = newTicket.Ticket.Id });
             }
             catch
             {

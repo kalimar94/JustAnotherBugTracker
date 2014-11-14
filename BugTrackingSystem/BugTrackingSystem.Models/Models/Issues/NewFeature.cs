@@ -1,13 +1,11 @@
 ﻿using BugTrackingSystem.Models.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BugTrackingSystem.Models.Issues
 {
     public class NewFeature : Issue
     {
+        [DataType(DataType.MultilineText)]
         public string AcceptanceCriteria { get; set; }
 
 

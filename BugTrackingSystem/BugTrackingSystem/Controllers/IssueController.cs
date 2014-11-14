@@ -19,9 +19,10 @@ namespace BugTrackingSystem.Controllers
             unitOfWork = new IssueProjectUserUnit(new ApplicationDbContext());
         }
 
-        public ActionResult Index(string projectId, int issueId)
+        public ActionResult Details(string projectId, int issueId)
         {
-            return View();
+            var issue = unitOfWork.Issues.GetByID(issueId);
+            return View(issue);
         }
 
         // GET: Issue/Create

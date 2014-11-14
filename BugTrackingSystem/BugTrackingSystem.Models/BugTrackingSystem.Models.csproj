@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\IssueComment.cs" />
     <Compile Include="Models\Enums\IssueType.cs" />
     <Compile Include="Models\Enums\Priority.cs" />
     <Compile Include="Models\Enums\Severity.cs" />
@@ -91,6 +91,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Worklog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\TicketComment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

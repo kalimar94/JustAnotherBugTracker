@@ -25,5 +25,7 @@ namespace BugTrackingSystem.Data
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+
+        public System.Data.Entity.DbSet<BugTrackingSystem.Models.IssueComment> IssueComments { get; set; }
     }
 }

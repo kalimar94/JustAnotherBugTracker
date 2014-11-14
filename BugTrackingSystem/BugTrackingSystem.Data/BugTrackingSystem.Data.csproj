@@ -58,6 +58,7 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\Units\IssueProjectUserUnit.cs" />
     <Compile Include="Repository\Units\ProductProjectUserUnit.cs" />
+    <Compile Include="Repository\Units\ProductTicketUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BugTrackingSystem.Models.IssueComment>
+
+
+@foreach (var comment in Model)
+{
+    <section class="comment">
+        <p class="author"> @comment.User.UserName </p>
+        <p class="commentText">
+            @comment.CommentText
+        </p>
+
+        @if (User.Identity.Name == comment.UserId)
+	    {
+		   @Ajax.ActionLink("Add comment", "Edit", new AjaxOptions
+            {
+                HttpMethod = "GET",
+                OnSuccess = "editComment"
+            })
+        }
+    </section> 
+}
+
+@Ajax.ActionLink("Add comment", "Create", new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "addComment"
+})
+
+<div id="addComment"> </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function editComment(data, status, xhr) {
+            alert(data);
+            alert(status);
+        }
+    </script>
+}
+
+
+

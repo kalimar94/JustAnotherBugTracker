@@ -11,6 +11,7 @@ namespace BugTrackingSystem.Models
         [Required]
         public string Title { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         public string ProductId { get; set; }

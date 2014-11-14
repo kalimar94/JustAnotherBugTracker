@@ -15,6 +15,7 @@ namespace BugTrackingSystem.Models
 
         public Priority Priority { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Summary { get; set; }
 
         public string AssigneeId { get; set; }

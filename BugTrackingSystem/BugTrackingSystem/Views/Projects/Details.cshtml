@@ -21,7 +21,7 @@
     }
     else
     {
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th> Id </th>
@@ -29,6 +29,7 @@
                     <th> Type </th>
                     <th> Assignee </th>
                     <th> Priority </th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -39,8 +40,9 @@
                     <td> @issue.Id </td>
                     <td> @issue.Name </td>
                     <td> @issue.TypeName </td>
-                    <td> @issue.Assignee.UserName </td>
+                    <td> @(issue.Assignee == null ? "Not assigned" : issue.Assignee.UserName) </td>
                     <td> @issue.Priority </td>
+                    <td> @Html.ActionLink("Details", "Details", "Issue", new {projectId = @Model.Id, issueId = @issue.Id}) </td>
                 </tr>
             }
 

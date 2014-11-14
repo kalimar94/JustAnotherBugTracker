@@ -158,8 +158,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\ServiceDesk\Controllers\ServiceDeskHomeController.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\TicketsController.cs" />
     <Compile Include="Areas\ServiceDesk\ServiceDeskAreaRegistration.cs" />
+    <Compile Include="Areas\ServiceDesk\ViewModels\CreateTicketViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,6 +194,7 @@
     <Content Include="Areas\ServiceDesk\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\ServiceDesk\Views\Tickets\Create.cshtml" />
     <Content Include="Areas\ServiceDesk\Views\Tickets\Details.cshtml" />
+    <Content Include="Areas\ServiceDesk\Views\ServiceDeskHome\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -261,11 +264,12 @@
     <Content Include="Views\Issue\Partials\BugView.cshtml" />
     <Content Include="Views\Issue\Partials\FeatureView.cshtml" />
     <Content Include="Views\Issue\Partials\ImprovementView.cshtml" />
+    <Content Include="Views\Comments\View.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\ServiceDesk\ViewModels\" />
-    <Folder Include="Views\Comments\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

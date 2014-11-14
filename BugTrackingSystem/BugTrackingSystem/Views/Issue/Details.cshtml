@@ -51,6 +51,15 @@
         else if (Model is Story) { @Html.Partial(@"Partials\BugView") }
         else if (Model is Task) { @Html.Partial(@"Partials\BugView") }
     </dl>
+
+
+     @Ajax.ActionLink("View comments", "View", "Comments", new AjaxOptions{
+            UpdateTargetId = "commentsSection",
+            HttpMethod = "GET"
+      });
+
+    <div id="commentsSection">  </div>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

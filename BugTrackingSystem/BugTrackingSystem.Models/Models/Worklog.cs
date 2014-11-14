@@ -8,7 +8,12 @@ namespace BugTrackingSystem.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        [Required]
+        public double HoursWorked { get; set; }
 
         public int IssueId { get; set; }
 
