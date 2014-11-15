@@ -24,7 +24,14 @@ namespace BugTrackingSystem.Controllers
 
         public ActionResult View(int id)
         {
-            var model = unitOfWork.Comments.Where(x => x.IssueId == id);
+            var model = unitOfWork.Comments.Including("User").Where(x => x.IssueId == id);
+            ViewBag.IssueId = id;
+            return PartialView(model);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var model = unitOfWork.Comments.Single(x => x.Id == id);
             ViewBag.IssueId = id;
             return PartialView(model);
         }
@@ -38,22 +45,42 @@ namespace BugTrackingSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(int id, IssueComment newComment)
+        public ActionResult Create(int id, IssueComment comment)
         {
-            return RedirectToAction("View", new { id = id });
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var user = unitOfWork.Users.Single(x => x.Id == userId);
+
+                comment.IssueId = id;
+                comment.UserId = userId;
+
+                unitOfWork.Comments.Insert(comment);
+                unitOfWork.SaveChanges();
+
+                return RedirectToAction("Details", new { id = comment.Id });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpPost]
-        public ActionResult Edit(int commentId, int id, FormCollection CommentData)
+        public ActionResult Edit(int id, int issueId, string commentText)
         {
-            var comment = unitOfWork.Comments.GetByID(commentId);
-            return RedirectToAction("View", new { id = id });
+            var comment = unitOfWork.Comments.GetByID(id);
+            comment.CommentText = commentText;
+            unitOfWork.SaveChanges();
+
+            return RedirectToAction("Details", new { id = comment.Id });
         }
 
         public ActionResult Edit(int id)
         {
-            var comment = unitOfWork.Comments.GetByID(id);
-            return PartialView(comment);
+            var model = unitOfWork.Comments.Including("User").Single(x => x.Id == id);
+            ViewBag.IssueId = id;
+            return PartialView(model);
         }
     }
 }

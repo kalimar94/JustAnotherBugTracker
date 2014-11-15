@@ -6,10 +6,11 @@
 }
 
 <h2>Product @Model.Id - @Model.Name  </h2>
-@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new {Class="btn btn-primary"})
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Delete
-</button>
+<p> Product owner: @(Model.Owner == null ? "None" : Model.Owner.UserName)</p>
+
+@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { Class = "btn btn-primary" })
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal"> Delete</button>
+
 <hr />
 
 <div>
@@ -28,19 +29,19 @@
 </p>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="deleteModalLabel">Delete project @Model.Id</h4>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete project [@Model.Id] @Model.Name
+                Are you sure you want to delete project [@Model.Id] @Model.Name?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="deleteProject()" >Delete</button>
+                <button type="button" class="btn btn-primary" onclick="deleteProduct()">Delete</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -48,9 +49,11 @@
 </div>
 
 
-
-<script type="text/javascript">
-    function deleteProject() {
-        alert("shspooof deleted!");
-    }
-</script>
+@section Scripts
+{
+    <script type="text/javascript">
+        function deleteProduct() {
+            alert("shspooof deleted!");
+        }
+    </script>
+}

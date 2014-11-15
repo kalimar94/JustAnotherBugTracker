@@ -12,10 +12,11 @@ namespace BugTrackingSystem.Models
         public string AuthorName { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string AuthorEmail { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string commentText { get; set; }
+        public string CommentText { get; set; }
 
         public int TicketId { get; set; }
 

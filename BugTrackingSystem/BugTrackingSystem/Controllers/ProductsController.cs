@@ -23,13 +23,13 @@ namespace BugTrackingSystem.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View(unitOfWork.Products.GetAll("Owner"));
+            return View(unitOfWork.Products.Including("Owner"));
         }
 
         // GET: Product/Details/5
         public ActionResult Details(string id)
         {
-            return View(unitOfWork.Products.GetByID(id));
+            return View(unitOfWork.Products.Including("Owner").Single(x => x.Id == id));
         }
 
         // GET: Product/Create

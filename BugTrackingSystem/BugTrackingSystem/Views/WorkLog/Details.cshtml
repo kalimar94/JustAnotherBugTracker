@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model BugTrackingSystem.Models.Worklog
+
+
+<section class="worklog">
+     @Model.User.UserName has worked @Model.HoursWorked on @Model.Date
+</section>

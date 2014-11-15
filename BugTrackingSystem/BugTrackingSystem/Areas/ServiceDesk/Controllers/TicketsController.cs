@@ -19,7 +19,6 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
         public TicketsController()
         {
             this.unitOfWork = new ProductTicketUnit(new ApplicationDbContext());
-
         }
 
         // GET: ServiceDesk/Ticket
@@ -31,7 +30,7 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
         // GET: ServiceDesk/Ticket/Details/5
         public ActionResult Details(int id)
         {
-            var ticket = unitOfWork.Tickets.GetAll("RelatedProduct").Single(x => x.Id == id);
+            var ticket = unitOfWork.Tickets.Including("RelatedProduct").Single(x => x.Id == id);
 
             return View(ticket);
         }

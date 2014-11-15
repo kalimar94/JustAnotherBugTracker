@@ -45,16 +45,29 @@
             @Html.DisplayFor(model => model.Summary)
         </dd>
 
-        @if (Model is Bug) { @Html.Partial(@"Partials\BugView") }
-        else if (Model is Improvement) { @Html.Partial(@"Partials\ImproveentView") }
-        else if (Model is NewFeature) { @Html.Partial(@"Partials\FeatureView") }
-        else if (Model is Story) { @Html.Partial(@"Partials\BugView") }
-        else if (Model is Task) { @Html.Partial(@"Partials\BugView") }
+        @if (Model is Bug)
+        { @Html.Partial(@"Partials\BugView") }
+        else if (Model is Improvement)
+        { @Html.Partial(@"Partials\ImproveentView") }
+        else if (Model is NewFeature)
+        { @Html.Partial(@"Partials\FeatureView") }
+        else if (Model is Story)
+        { @Html.Partial(@"Partials\BugView") }
+        else if (Model is Task)
+        { @Html.Partial(@"Partials\BugView") }
     </dl>
 
-    <button id="viewComments" > View comments </button>
+    @Ajax.ActionLink("View work logs", "View", "WorkLog", new { id = Model.Id },
+         new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "workLogsSection" }, null)
 
-    <div id="commentsSection">  </div>
+    <section id="workLogsSection"></section>
+
+    <hr />
+
+    @Ajax.ActionLink("View comments", "View", "Comments", new { id = Model.Id },
+        new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "commentsSection" }, null)
+
+    <section id="commentsSection"></section>
 
 </div>
 <p>
@@ -65,23 +78,6 @@
 
 @section Scripts
 {
-@Scripts.Render("~/bundles/jquery")
-
-<script type="text/javascript">
-    $("#viewComments").click(function () {
-
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("View", "Comments", new { id = Model.Id })',
-            success: function (result) {
-                $("#commentsSection").html(result);
-            },
-            error: function (result) {
-                alert(result);
-            }
-        });
-    });
-
-</script>
-
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    @Scripts.Render("~/bundles/jquery")
 }

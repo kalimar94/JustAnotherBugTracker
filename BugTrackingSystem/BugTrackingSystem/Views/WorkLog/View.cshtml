@@ -1,0 +1,23 @@
+﻿@using BugTrackingSystem.Models;
+
+@model IEnumerable<Worklog>
+
+
+@foreach (var worklog in Model)
+{
+    @Html.Partial("Details", worklog)
+}
+
+@Html.Partial("Create", new Worklog())
+
+
+
+
+
+
+
+
+
+
+
+

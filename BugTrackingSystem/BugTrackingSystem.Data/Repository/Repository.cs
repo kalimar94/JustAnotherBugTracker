@@ -16,7 +16,7 @@ namespace BugTrackingSystem.Data.Repositories
             dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll(params string[] includeItems)
+        public IEnumerable<TEntity> Including(params string[] includeItems)
         {
             DbQuery<TEntity> result = dbSet;
 
@@ -61,12 +61,12 @@ namespace BugTrackingSystem.Data.Repositories
 
         public IEnumerator<TEntity> GetEnumerator()
         {
-            return GetAll().GetEnumerator();
+            return Including().GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return GetAll().GetEnumerator();
+            return Including().GetEnumerator();
         }
     }
 }

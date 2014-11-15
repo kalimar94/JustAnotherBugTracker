@@ -9,7 +9,11 @@
 
 <div>
     <h4>Project: @Model.Id - @Model.Name</h4>
-    <span> Project Manager: @(Model.Manager==null?"None":Model.Manager.UserName) </span>
+    <p> Project Manager: @(Model.Manager==null?"None":Model.Manager.UserName) </p>
+
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { Class = "btn btn-primary" })
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal"> Delete </button>
+
     <hr />
 
     @Html.ActionLink("Create Issue", "Create", "Issue", new { projectId = ViewContext.RouteData.Values["id"] }, null)
@@ -42,7 +46,7 @@
                     <td> @issue.TypeName </td>
                     <td> @(issue.Assignee == null ? "Not assigned" : issue.Assignee.UserName) </td>
                     <td> @issue.Priority </td>
-                    <td> @Html.ActionLink("Details", "Details", "Issue", new {projectId = @Model.Id, issueId = @issue.Id}) </td>
+                    <td> @Html.ActionLink("details", "Details", "Issue", new { projectId = Model.Id, issueId = issue.Id}, null) </td>
                 </tr>
             }
 
@@ -54,3 +58,33 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="deleteModalLabel">Delete project @Model.Id</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete project [@Model.Id] @Model.Name?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="deleteProject()">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function deleteProject() {
+            alert("shspooof deleted!");
+            // TODO: ajax post to delete method
+        }
+    </script>
+}

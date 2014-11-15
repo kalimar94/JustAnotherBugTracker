@@ -1,6 +1,6 @@
 ﻿@using BugTrackingSystem.Models;
 
-@model IEnumerable<IssueComment>
+@model IEnumerable<TicketComment>
 
 
 @foreach (var comment in Model)
@@ -8,7 +8,7 @@
     @Html.Partial("Details", comment)
 }
 
-@Html.Partial("Create", new IssueComment())
+@Html.Partial("Create", new TicketComment())
 
 
 

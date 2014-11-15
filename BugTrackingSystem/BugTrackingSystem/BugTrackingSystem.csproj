@@ -158,6 +158,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\ServiceDesk\Controllers\TicketCommentsController.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\ServiceDeskHomeController.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\TicketsController.cs" />
     <Compile Include="Areas\ServiceDesk\ServiceDeskAreaRegistration.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\WorkLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,10 +197,15 @@
     <Content Include="Areas\ServiceDesk\Views\Tickets\Create.cshtml" />
     <Content Include="Areas\ServiceDesk\Views\Tickets\Details.cshtml" />
     <Content Include="Areas\ServiceDesk\Views\ServiceDeskHome\Index.cshtml" />
+    <Content Include="Areas\ServiceDesk\Views\TicketComments\Create.cshtml" />
+    <Content Include="Areas\ServiceDesk\Views\TicketComments\Details.cshtml" />
+    <Content Include="Areas\ServiceDesk\Views\TicketComments\View.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -267,6 +274,10 @@
     <Content Include="Views\Comments\View.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\WorkLog\View.cshtml" />
+    <Content Include="Views\WorkLog\Create.cshtml" />
+    <Content Include="Views\WorkLog\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

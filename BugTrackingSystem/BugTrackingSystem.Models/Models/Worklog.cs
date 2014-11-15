@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BugTrackingSystem.Models
@@ -15,9 +16,20 @@ namespace BugTrackingSystem.Models
         [Required]
         public double HoursWorked { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+
+        [Required]
         public int IssueId { get; set; }
 
         [ForeignKey("IssueId")]
         public virtual Issue Issue { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
 }
