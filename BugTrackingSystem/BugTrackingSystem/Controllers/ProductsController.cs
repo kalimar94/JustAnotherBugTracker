@@ -10,6 +10,8 @@ using System.Web.Mvc;
 
 namespace BugTrackingSystem.Controllers
 {
+    [Authorize]
+    [ValidateInput(false)]
     public class ProductsController : Controller
     {
         private ProductProjectUserUnit unitOfWork;
@@ -84,11 +86,12 @@ namespace BugTrackingSystem.Controllers
         {
             try
             {
-                var toUpdate = unitOfWork.Products.GetByID(id);
-
-                TryUpdateModel(toUpdate);
-                unitOfWork.SaveChanges();
-
+                if (ModelState.IsValid)
+                {
+                    unitOfWork.Products.Update(editedProduct.Product);
+                    unitOfWork.SaveChanges();
+                }
+        
                 return RedirectToAction("Index");
             }
             catch

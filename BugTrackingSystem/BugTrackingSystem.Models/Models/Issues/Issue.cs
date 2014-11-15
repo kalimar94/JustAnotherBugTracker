@@ -11,6 +11,8 @@ namespace BugTrackingSystem.Models
         public int Id { get; set; }
 
         [Required]
+        [RegularExpression(@"^[\w]+$", ErrorMessage = "No symbols are allowed for the name of the issue except '_'")]
+        [MaxLength(15)]
         public string Name { get; set; }
 
         public Priority Priority { get; set; }

@@ -71,7 +71,7 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { issueId = Model.Id, projectId= ViewContext.RouteData.Values["projectId"] }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 

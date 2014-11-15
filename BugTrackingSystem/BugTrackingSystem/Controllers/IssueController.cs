@@ -64,27 +64,40 @@ namespace BugTrackingSystem.Controllers
 
         // GET: Issue/Edit/5
         public ActionResult Edit(string projectId, int issueId)
-        { 
-            return View();
+        {
+            var issue = unitOfWork.Issues.Including("Assignee").Single(x => x.Id == issueId);
+
+            var viewModel = new EditIssueViewModel
+            {
+                AvailableUsers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }),
+                AvailableProjects = unitOfWork.Projects.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }),
+                IssueTypes = from IssueType e in Enum.GetValues(typeof(IssueType))
+                             select new SelectListItem { Text = e.ToString() },
+                IssueData = issue
+            };
+
+            return View(viewModel);
         }
 
         // POST: Issue/Edit/5
         [HttpPost]
-        public ActionResult Edit(int issueId, FormCollection collection)
+        public ActionResult Edit(string projectId, int issueId, FormCollection collection)
         {
             try
             {
-                var viewModel = ParseForm(collection);
-                var issue = unitOfWork.Issues.Single(x => x.Id == issueId);
+                if (ModelState.IsValid)
+                {
+                    var issue = ParseForm(collection);
+                    issue.Id = issueId;
+                    unitOfWork.Issues.Update(issue);
+                    unitOfWork.SaveChanges();
+                }
 
-                unitOfWork.Issues.Update(issue);
-
-                unitOfWork.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {issueId = issueId, projectId = projectId});
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex);
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }

@@ -11,6 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace BugTrackingSystem.Controllers
 {
+
+    [Authorize]
+    [ValidateInput(false)]
     public class ProjectsController : Controller
     {
         private ProductProjectUserUnit unitOfWork;
@@ -86,9 +89,11 @@ namespace BugTrackingSystem.Controllers
         {
             try
             {
-                var toUpdate = unitOfWork.Projects.GetByID(id);
-                TryUpdateModel(toUpdate);
-                unitOfWork.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    unitOfWork.Projects.Update(projectData.Project);
+                    unitOfWork.SaveChanges();
+                }
 
                 return RedirectToAction("Index");
             }

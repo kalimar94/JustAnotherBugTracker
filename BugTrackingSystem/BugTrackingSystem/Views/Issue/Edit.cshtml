@@ -1,4 +1,6 @@
-﻿@model BugTrackingSystem.Models.Issue
+﻿@using BugTrackingSystem.Models.Issues
+
+@model BugTrackingSystem.ViewModels.EditIssueViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -7,61 +9,95 @@
 
 <h2>Edit</h2>
 
-
-@using (Html.BeginForm())
+@if (Model == null)
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Issue</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+    @Html.ValidationSummary("", new { @class = "text-danger" });
+}
+else
+{
+    using (Html.BeginForm(new { issueId = Model.IssueData.Id, projectId = ViewContext.RouteData.Values["projectId"] }))
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <h4>Issue</h4>
+            <hr />
+            @Html.HiddenFor(model => model.IssueData.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IssueData.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IssueData.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IssueData.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IssueData.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.IssueData.Priority, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IssueData.Priority, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IssueData.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IssueData.Summary, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IssueData.Summary, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IssueData.AssigneeId, "IssueData.AssigneeId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IssueData.AssigneeId", Model.AvailableUsers, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IssueData.AssigneeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IssueData.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IssueData.ProjectId", Model.AvailableProjects, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IssueData.AssigneeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.Hidden("IssueType", Model.IssueData.TypeName);
+
+            <div id="additionalData">
+                @if (Model.IssueData is Bug)
+                {
+                    @Html.Partial(@"Partials\BugEditor", Model.IssueData)
+                }
+                else if (Model.IssueData is Improvement)
+                {
+                    @Html.Partial(@"Partials\ImprovementEditor", Model.IssueData)
+                }
+                else if (Model.IssueData is NewFeature)
+                {
+                    @Html.Partial(@"Partials\FeatureEditor", Model.IssueData)
+                }
+                else if (Model.IssueData is Story)
+                {
+                    @Html.Partial(@"Partials\BugEditor", Model.IssueData)
+                }
+                else if (Model.IssueData is Task)
+                {
+                    @Html.Partial(@"Partials\BugEditor", Model.IssueData)
+                }
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Priority, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AssigneeId, "AssigneeId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AssigneeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AssigneeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    }
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back", "Details", new { issueId = ViewContext.RouteData.Values["issueId"], projectId = ViewContext.RouteData.Values["projectId"] })
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
