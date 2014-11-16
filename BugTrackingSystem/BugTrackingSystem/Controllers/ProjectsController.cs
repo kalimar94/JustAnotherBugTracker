@@ -99,9 +99,10 @@ namespace BugTrackingSystem.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(projectData);
             }
         }
 

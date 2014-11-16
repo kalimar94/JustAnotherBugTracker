@@ -10,52 +10,17 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Issue</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Assignee.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Assignee.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Summary)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Summary)
-        </dd>
-
-        @if (Model is Bug)
-        { @Html.Partial(@"Partials\BugView") }
-        else if (Model is Improvement)
-        { @Html.Partial(@"Partials\ImproveentView") }
-        else if (Model is NewFeature)
-        { @Html.Partial(@"Partials\FeatureView") }
-        else if (Model is Story)
-        { @Html.Partial(@"Partials\BugView") }
-        else if (Model is Task)
-        { @Html.Partial(@"Partials\BugView") }
-    </dl>
+    @if (Model is Bug)
+    { @Html.DisplayForModel("Bug") }
+    else if (Model is Improvement)
+    { @Html.DisplayForModel("Improvement") }
+    else if (Model is NewFeature)
+    { @Html.DisplayForModel("NewFeature") }
+    else if (Model is Story)
+    { @Html.DisplayForModel("Story") }
+    else if (Model is Task)
+    { @Html.DisplayForModel("Task") }
 
     @Ajax.ActionLink("View work logs", "View", "WorkLog", new { id = Model.Id },
          new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "workLogsSection" }, null)
@@ -71,7 +36,7 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { issueId = Model.Id, projectId= ViewContext.RouteData.Values["projectId"] }) |
+    @Html.ActionLink("Edit", "Edit", new { issueId = Model.Id, projectId = ViewContext.RouteData.Values["projectId"] }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 

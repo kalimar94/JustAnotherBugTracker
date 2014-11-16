@@ -13,8 +13,8 @@
 
 <hr />
 
-<div>
-    <h4> Projects: </h4>
+<div id="productsData">
+    <h4> Products: </h4>
 
     <ul>
         @foreach (var item in Model.Projects)
@@ -52,8 +52,27 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function deleteProduct() {
-            alert("shspooof deleted!");
+
+        function deleteProduct(sender) {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete", "Products", new { id = Model.Id })',
+                data: { __RequestVerificationToken: token },
+                success: function (result) {
+                    if (result.isSuccess) {
+                        window.location = '@Url.Action("Index", "Products")';
+                    } else {
+                        $("#productsData").prepend("<span class='alert alert-danger'> Error: " + result.data + "</span");
+                        $('#deleteModal').modal('hide')
+                    }
+                },
+                error: function (result) {
+                    $("#productsData").prepend("<span class='alert alert-danger'> Error: " + result.error + "</span");
+                    $('#deleteModal').modal('hide')
+                }
+            });
         }
     </script>
 }

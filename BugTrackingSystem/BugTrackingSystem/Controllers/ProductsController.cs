@@ -31,7 +31,8 @@ namespace BugTrackingSystem.Controllers
         // GET: Product/Details/5
         public ActionResult Details(string id)
         {
-            return View(unitOfWork.Products.Including("Owner").Single(x => x.Id == id));
+            var model = unitOfWork.Products.Including("Owner").Single(x => x.Id == id);
+            return View(model);
         }
 
         // GET: Product/Create
@@ -93,12 +94,13 @@ namespace BugTrackingSystem.Controllers
                     unitOfWork.Products.Update(editedProduct.Product);
                     unitOfWork.SaveChanges();
                 }
-        
+
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(editedProduct);
             }
         }
 
@@ -111,18 +113,18 @@ namespace BugTrackingSystem.Controllers
         // POST: Product/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, FormCollection collection)
+        public JsonResult Delete(string id, FormCollection collection)
         {
             try
             {
                 unitOfWork.Products.Delete(id);
                 unitOfWork.SaveChanges();
 
-                return RedirectToAction("Index");
+                return Json(new {isSuccess = true});
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { isSuccess = false, data = ex.Message });
             }
         }
     }

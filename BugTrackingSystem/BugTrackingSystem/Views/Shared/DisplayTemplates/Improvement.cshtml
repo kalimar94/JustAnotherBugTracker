@@ -4,6 +4,9 @@
     <h4>Improvement</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        @Html.Partial("~/Views/Shared/DisplayTemplates/Issue.cshtml", Model)
+
         <dt>
             @Html.DisplayNameFor(model => model.Assignee.Email)
         </dt>

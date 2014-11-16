@@ -1,0 +1,25 @@
+﻿@model BugTrackingSystem.Models.Issues.Task
+
+<div>
+    <h4>Task</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.Partial("~/Views/Shared/DisplayTemplates/Issue.cshtml", Model)
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcceptanceCriteria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+    </dl>
+</div>

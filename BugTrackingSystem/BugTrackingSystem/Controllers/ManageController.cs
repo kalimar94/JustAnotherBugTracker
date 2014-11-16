@@ -24,6 +24,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         private ApplicationUserManager _userManager;
+
         public ApplicationUserManager UserManager
         {
             get

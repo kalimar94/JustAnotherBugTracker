@@ -28,19 +28,11 @@ namespace BugTrackingSystem.Controllers
         // GET: Issue/Create
         public ActionResult Create(string projectId)
         {
-            var viewModel = new EditIssueViewModel()
-            {
-                AvailableUsers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }),
-                AvailableProjects = unitOfWork.Projects.Select(x=> new SelectListItem { Text = x.Name, Value = x.Id }),
-                IssueTypes = from IssueType e in Enum.GetValues(typeof(IssueType))
-                             select new SelectListItem { Text = e.ToString() }
-            };
-
+            var viewModel = PrepareViewModel(null);
             viewModel.AvailableProjects.Single(x => x.Value == projectId).Selected = true;
 
             return View(viewModel);
         }
-
 
         // POST: Issue/Create
         [HttpPost]
@@ -50,7 +42,6 @@ namespace BugTrackingSystem.Controllers
             try
             {
                 var issue = ParseForm(collection);
-
                 unitOfWork.Issues.Insert(issue);
 
                 unitOfWork.SaveChanges();
@@ -67,15 +58,7 @@ namespace BugTrackingSystem.Controllers
         public ActionResult Edit(string projectId, int issueId)
         {
             var issue = unitOfWork.Issues.Including("Assignee").Single(x => x.Id == issueId);
-
-            var viewModel = new EditIssueViewModel
-            {
-                AvailableUsers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }),
-                AvailableProjects = unitOfWork.Projects.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }),
-                IssueTypes = from IssueType e in Enum.GetValues(typeof(IssueType))
-                             select new SelectListItem { Text = e.ToString() },
-                IssueData = issue
-            };
+            var viewModel = PrepareViewModel(issue);
 
             return View(viewModel);
         }
@@ -100,7 +83,7 @@ namespace BugTrackingSystem.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View();
+                return View(collection);
             }
         }
 
@@ -141,6 +124,19 @@ namespace BugTrackingSystem.Controllers
                 default:
                     throw new ArgumentException();
             }
+        }
+
+        private EditIssueViewModel PrepareViewModel(Issue issue)
+        {
+            var viewModel = new EditIssueViewModel
+            {
+                AvailableUsers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }),
+                AvailableProjects = unitOfWork.Projects.Select(x => new SelectListItem { Text = x.Name, Value = x.Id }),
+                IssueTypes = from IssueType e in Enum.GetValues(typeof(IssueType))
+                             select new SelectListItem { Text = e.ToString() },
+                IssueData = issue
+            };
+            return viewModel;
         }
 
         private Issue ParseForm(FormCollection formData)

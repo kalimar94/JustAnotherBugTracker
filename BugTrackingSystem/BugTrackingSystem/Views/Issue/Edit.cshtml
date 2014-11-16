@@ -23,11 +23,9 @@ else
             <h4>Issue</h4>
             <hr />
             @Html.HiddenFor(model => model.IssueData.Id)
-
-            @{ Html.BeginForm(); }
-            @Html.EditorForModel()
-
             @Html.Hidden("IssueType", Model.IssueData.TypeName);
+
+            @Html.EditorForModel()
 
             <div id="additionalData">
                 @if (Model.IssueData is Bug)

@@ -18,7 +18,6 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Product.Id)
 
-        @{ Html.BeginForm(); }
         @Html.EditorForModel()
 
         <div class="form-group">
