@@ -10,16 +10,15 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 
-
 namespace BugTrackingSystem.Controllers
 {
     public class CommentsController : Controller
     {
-        CommentUserUnit unitOfWork;
+        IBugTrackingData unitOfWork;
 
-        public CommentsController()
+        public CommentsController(IBugTrackingData unitOfWork)
         {
-            this.unitOfWork = new CommentUserUnit(new ApplicationDbContext());
+            this.unitOfWork = unitOfWork;
         }
 
         public ActionResult View(int id)
@@ -45,6 +44,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(int id, IssueComment comment)
         {
             try
@@ -67,6 +67,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, int issueId, string commentText)
         {
             var comment = unitOfWork.Comments.GetByID(id);

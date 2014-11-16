@@ -5,12 +5,13 @@
 <script type="text/javascript">
     function submitEdit(sender) {
         var commentSection = sender.closest(".editComment"),
-            commentText = sender.closest("section").find("textarea").val();
+            commentText = sender.closest("section").find("textarea").val(),
+            token = $('input[name="__RequestVerificationToken"]').val();
 
         $.ajax({
             type: "POST",
             url: '@Url.Action("Edit", "Comments", new { id = Model.Id })',
-            data: { commentText: commentText, issueId: '@ViewBag.IssueId' },
+            data: { commentText: commentText, issueId: '@ViewBag.IssueId', __RequestVerificationToken: token },
             success: function (result) {
                 commentSection.html(result);
             },
@@ -20,6 +21,8 @@
         });
     }
 </script>
+
+@Html.AntiForgeryToken();
 
 <div class="editComment">
     <section class="comment form-horizontal">

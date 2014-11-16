@@ -40,6 +40,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -92,6 +101,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -156,8 +168,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AccountAdministrationController.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Administration\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Administration\ViewModels\UserRoleViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\TicketCommentsController.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\ServiceDeskHomeController.cs" />
     <Compile Include="Areas\ServiceDesk\Controllers\TicketsController.cs" />
@@ -200,6 +219,15 @@
     <Content Include="Areas\ServiceDesk\Views\TicketComments\Create.cshtml" />
     <Content Include="Areas\ServiceDesk\Views\TicketComments\Details.cshtml" />
     <Content Include="Areas\ServiceDesk\Views\TicketComments\View.cshtml" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\AccountAdministration\Register.cshtml" />
+    <Content Include="Areas\Administration\Views\AccountAdministration\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Roles\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Roles\AddUser.cshtml" />
+    <Content Include="Areas\Administration\Views\Roles\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\AccountAdministration\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -281,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

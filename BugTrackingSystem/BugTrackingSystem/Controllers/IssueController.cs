@@ -1,5 +1,5 @@
 ﻿using BugTrackingSystem.Data;
-using BugTrackingSystem.Data.Repositories.Units;
+using BugTrackingSystem.Data.Repository.Units;
 using BugTrackingSystem.Models;
 using BugTrackingSystem.Models.Issues;
 using BugTrackingSystem.Models.Models.Enums;
@@ -12,11 +12,11 @@ namespace BugTrackingSystem.Controllers
 {
     public class IssueController : Controller
     {
-        private IssueProjectUserUnit unitOfWork;
+        private IBugTrackingData unitOfWork;
 
-        public IssueController()
+        public IssueController(IBugTrackingData unitOfWork)
         {
-            unitOfWork = new IssueProjectUserUnit(new ApplicationDbContext());
+            this.unitOfWork = unitOfWork;
         }
 
         public ActionResult Details(string projectId, int issueId)
@@ -44,6 +44,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Issue/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(string projectId, FormCollection collection)
         {
             try
@@ -53,7 +54,7 @@ namespace BugTrackingSystem.Controllers
                 unitOfWork.Issues.Insert(issue);
 
                 unitOfWork.SaveChanges();
-                return RedirectToAction("Details", "Project", new { id = projectId });
+                return RedirectToAction("Details", "Projects", new { id = projectId });
             }
             catch (Exception ex)
             {
@@ -81,6 +82,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Issue/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(string projectId, int issueId, FormCollection collection)
         {
             try
@@ -104,6 +106,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Issue/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

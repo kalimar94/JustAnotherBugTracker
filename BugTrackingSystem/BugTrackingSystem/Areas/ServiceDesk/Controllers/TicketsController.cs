@@ -1,24 +1,17 @@
 ﻿using BugTrackingSystem.Areas.ServiceDesk.ViewModels;
-using BugTrackingSystem.Data;
-using BugTrackingSystem.Data.Repositories;
 using BugTrackingSystem.Data.Repository.Units;
-using BugTrackingSystem.Models;
-using BugTrackingSystem.Models.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
 {
     public class TicketsController : Controller
     {
-        ProductTicketUnit unitOfWork;
+        private IServiceDeskData unitOfWork;
 
-        public TicketsController()
+        public TicketsController(IServiceDeskData unitOfWork)
         {
-            this.unitOfWork = new ProductTicketUnit(new ApplicationDbContext());
+            this.unitOfWork = unitOfWork;
         }
 
         // GET: ServiceDesk/Ticket
@@ -48,6 +41,7 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
 
         // POST: ServiceDesk/Ticket/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CreateTicketViewModel newTicket)
         {
             try

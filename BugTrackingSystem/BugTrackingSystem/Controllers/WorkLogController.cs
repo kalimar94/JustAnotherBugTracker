@@ -10,13 +10,14 @@ using Microsoft.AspNet.Identity;
 
 namespace BugTrackingSystem.Controllers
 {
+    [Authorize]
     public class WorkLogController : Controller
-    { 
-        private WorkLogUserUnit unitOfWork;
+    {
+        private IBugTrackingData unitOfWork;
 
-        public WorkLogController()
+        public WorkLogController(IBugTrackingData unitOfWork)
         {
-            this.unitOfWork = new WorkLogUserUnit(new ApplicationDbContext());
+            this.unitOfWork = unitOfWork;
         }
 
         public ActionResult View(int id)
@@ -42,14 +43,15 @@ namespace BugTrackingSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(int id, Worklog log)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValidField("Date") && ModelState.IsValidField("Description")
+                    && ModelState.IsValidField("HoursWorked"))
                 {
                     var userId = User.Identity.GetUserId();
-                    var user = unitOfWork.Users.Single(x => x.Id == userId);
 
                     log.IssueId = id;
                     log.UserId = userId;
@@ -62,7 +64,7 @@ namespace BugTrackingSystem.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid model data");
-                    return View();
+                    return View(log);
                 }
             }
             catch (Exception ex)

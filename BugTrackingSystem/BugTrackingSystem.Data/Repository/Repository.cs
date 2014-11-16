@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
 namespace BugTrackingSystem.Data.Repositories
 {
-    public class Repository<TEntity> : IEnumerable<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
         protected ApplicationDbContext context;
@@ -59,6 +60,11 @@ namespace BugTrackingSystem.Data.Repositories
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+        }
+
         public IEnumerator<TEntity> GetEnumerator()
         {
             return Including().GetEnumerator();
@@ -68,5 +74,6 @@ namespace BugTrackingSystem.Data.Repositories
         {
             return Including().GetEnumerator();
         }
+
     }
 }

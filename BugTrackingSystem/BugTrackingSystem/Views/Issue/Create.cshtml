@@ -14,8 +14,8 @@
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 }
 else
-{
-    using (Html.BeginForm())
+{   
+    using (Html.BeginForm("Create", "Issue", new { projectId = ViewContext.RouteData.Values["projectId"] }))
     {
         @Html.AntiForgeryToken()
 

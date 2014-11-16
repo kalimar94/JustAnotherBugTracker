@@ -1,0 +1,24 @@
+﻿@model BugTrackingSystem.Areas.Administration.ViewModels.UserRoleViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Users:</h4>
+    <hr />
+    <ul>
+        @foreach (var user in Model.UsersInRole)
+        {
+            <li> @user.UserName </li>
+        }
+    </ul>
+
+    @Html.Partial("AddUser", Model);
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Role.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

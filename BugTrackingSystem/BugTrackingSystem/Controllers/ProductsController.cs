@@ -1,5 +1,5 @@
 ﻿using BugTrackingSystem.Data;
-using BugTrackingSystem.Data.Repositories.Units;
+using BugTrackingSystem.Data.Repository.Units;
 using BugTrackingSystem.Models;
 using BugTrackingSystem.ViewModels;
 using System;
@@ -14,11 +14,11 @@ namespace BugTrackingSystem.Controllers
     [ValidateInput(false)]
     public class ProductsController : Controller
     {
-        private ProductProjectUserUnit unitOfWork;
+        private IBugTrackingData unitOfWork;
 
-        public ProductsController()
+        public ProductsController(IBugTrackingData unitOfWork)
         {
-            unitOfWork = new ProductProjectUserUnit(new ApplicationDbContext());
+            this.unitOfWork = unitOfWork;
 
         }
 
@@ -47,6 +47,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Product/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(EditProductViewModel newProduct)
         {
             try
@@ -82,6 +83,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Product/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, EditProductViewModel editedProduct)
         {
             try
@@ -108,6 +110,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Product/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(string id, FormCollection collection)
         {
             try

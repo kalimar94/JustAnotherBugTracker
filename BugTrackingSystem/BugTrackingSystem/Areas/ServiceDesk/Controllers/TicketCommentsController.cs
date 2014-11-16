@@ -7,28 +7,29 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using BugTrackingSystem.Models;
+using BugTrackingSystem.Data.Repositories;
 
 namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
 {
     public class TicketCommentsController : Controller
     {
-        TicketCommentUserUnit unitOfWork;
+        private IRepository<TicketComment> comments;
 
-        public TicketCommentsController()
+        public TicketCommentsController(IRepository<TicketComment> commentsData)
         {
-            this.unitOfWork = new TicketCommentUserUnit(new ApplicationDbContext());
+            this.comments = commentsData;
         }
 
         public ActionResult View(int id)
         {
-            var model = unitOfWork.Comments.Where(x => x.TicketId == id);
+            var model = comments.Where(x => x.TicketId == id);
             ViewBag.TicketId = id;
             return PartialView(model);
         }
 
         public ActionResult Details(int id)
         {
-            var model = unitOfWork.Comments.Single(x => x.Id == id);
+            var model = comments.Single(x => x.Id == id);
             ViewBag.IssueId = id;
             return PartialView(model);
         }
@@ -40,13 +41,14 @@ namespace BugTrackingSystem.Areas.ServiceDesk.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(int id, TicketComment comment)
         {
             try
             {
                 comment.TicketId = id;
-                unitOfWork.Comments.Insert(comment);
-                unitOfWork.SaveChanges();
+                comments.Insert(comment);
+                comments.SaveChanges();
 
                 return RedirectToAction("Details", new { id = comment.Id });
             }

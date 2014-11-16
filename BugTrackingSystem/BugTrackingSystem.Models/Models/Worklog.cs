@@ -14,6 +14,7 @@ namespace BugTrackingSystem.Models
         public string Description { get; set; }
 
         [Required]
+        [Range(0.001, 25)]
         public double HoursWorked { get; set; }
 
         [Required]
