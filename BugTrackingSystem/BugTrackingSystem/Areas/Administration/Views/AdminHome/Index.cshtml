@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Administration/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Index</h2>
@@ -9,3 +9,6 @@
 @Html.ActionLink("Manage Users", "Index", "AccountAdministration")
 <br />
 @Html.ActionLink("Manage Roles", "Index", "Roles")
+
+
+@(Html.Kendo().Calendar().Name("calendar"))
