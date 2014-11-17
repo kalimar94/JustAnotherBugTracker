@@ -1,14 +1,10 @@
-﻿using BugTrackingSystem.Data;
-using BugTrackingSystem.Data.Repositories;
-using BugTrackingSystem.Data.Repository.Units;
+﻿using BugTrackingSystem.Data.Repository.Units;
 using BugTrackingSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
+using BugTrackingSystem.ViewModels.Comments;
 using Microsoft.AspNet.Identity;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace BugTrackingSystem.Controllers
 {
@@ -30,7 +26,13 @@ namespace BugTrackingSystem.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = unitOfWork.Comments.Single(x => x.Id == id);
+            var model = unitOfWork.Comments.SingleOrDefault(x => x.Id == id);
+
+            if (model == null)
+            {
+                return HttpNotFound("The comment was not found");
+            }
+
             ViewBag.IssueId = id;
             return PartialView(model);
         }
@@ -45,24 +47,30 @@ namespace BugTrackingSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int id, IssueComment comment)
+        public ActionResult Create(int id, EditCommentViewModel comment)
         {
             try
             {
                 var userId = User.Identity.GetUserId();
                 var user = unitOfWork.Users.Single(x => x.Id == userId);
 
-                comment.IssueId = id;
-                comment.UserId = userId;
+                var dbModel = new IssueComment
+                {
+                    IssueId = id,
+                    UserId = userId,
+                    CommentText = comment.CommentText,
+                    CreatedOn = DateTime.Now
+                };
 
-                unitOfWork.Comments.Insert(comment);
+                unitOfWork.Comments.Insert(dbModel);
                 unitOfWork.SaveChanges();
 
-                return RedirectToAction("Details", new { id = comment.Id });
+                return RedirectToAction("Details", new { id = dbModel.Id });
             }
             catch (Exception ex)
             {
-                throw ex;
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(comment);
             }
         }
 

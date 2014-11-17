@@ -104,28 +104,5 @@ namespace BugTrackingSystem.Controllers
             }
         }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(string id)
-        {
-            return View();
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult Delete(string id, FormCollection collection)
-        {
-            try
-            {
-                unitOfWork.Products.Delete(id);
-                unitOfWork.SaveChanges();
-
-                return Json(new {isSuccess = true});
-            }
-            catch (Exception ex)
-            {
-                return Json(new { isSuccess = false, data = ex.Message });
-            }
-        }
     }
 }

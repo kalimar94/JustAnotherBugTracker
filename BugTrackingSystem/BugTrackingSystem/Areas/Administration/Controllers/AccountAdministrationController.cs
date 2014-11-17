@@ -1,10 +1,12 @@
-﻿using BugTrackingSystem.Areas.Administration.ViewModels;
+﻿using AutoMapper;
+using BugTrackingSystem.Areas.Administration.ViewModels;
 using BugTrackingSystem.Data.Repositories;
 using BugTrackingSystem.Data.Repository.Units;
 using BugTrackingSystem.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -47,7 +49,10 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
 
         public ActionResult Index()
         {
-            return View(users.Including("Roles"));
+            var usersData = users.Including("Roles");
+            var viewModel = Mapper.Map<IEnumerable<UserViewModel>>(usersData);
+
+            return View(viewModel);
         }
 
         // GET: /Account/Register
@@ -78,31 +83,42 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View(users.Including("Roles").Single(x => x.Id == id));
+            var user = users.Including("Roles").SingleOrDefault(x => x.Id == id);
+
+            if (user == null)
+            {
+                return HttpNotFound("The user was not found");
+            }
+
+            var viewModel = Mapper.Map<UserViewModel>(user);
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, User user)
+        public ActionResult Edit(string id, UserViewModel userData)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    users.Update(user);
+                    var dbModel = users.Single(x => x.Id == userData.Id);
+                    Mapper.Map(userData, dbModel);
+
                     users.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(user);
+                    return View(userData);
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(user);
+                return View(userData);
             }
         }
 

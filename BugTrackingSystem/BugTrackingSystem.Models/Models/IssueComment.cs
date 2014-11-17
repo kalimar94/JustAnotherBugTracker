@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BugTrackingSystem.Models
@@ -21,6 +22,8 @@ namespace BugTrackingSystem.Models
 
         [ForeignKey("IssueId")]
         public virtual Issue Issue { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
     }
 }

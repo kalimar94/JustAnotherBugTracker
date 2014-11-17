@@ -12,9 +12,9 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
 {
     public class IssueAdministrationController : Controller
     {
-        private Repository<Issue> issues;
+        private IRepository<Issue> issues;
 
-        public IssueAdministrationController(Repository<Issue> issueRepository)
+        public IssueAdministrationController(IRepository<Issue> issueRepository)
         {
             this.issues = issueRepository;
         }
@@ -22,15 +22,16 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
         // GET: Administration/IssueAdministration
         public ActionResult Index()
         {
+
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult GetData([DataSourceRequest]DataSourceRequest request)
         {
 
             var issues = this.issues.ToDataSourceResult(request, ModelState);
             return Json(issues);
-        }
+        }       
     }
 }

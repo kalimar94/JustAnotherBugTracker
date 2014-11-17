@@ -32,7 +32,13 @@ namespace BugTrackingSystem.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(string id)
         {
-            var project = unitOfWork.Projects.Including("Manager", "Issues").Single(x => x.Id == id);
+            var project = unitOfWork.Projects.Including("Manager", "Issues").SingleOrDefault(x => x.Id == id);
+
+            if (project == null)
+            {
+                return HttpNotFound("Project was not found");
+            }
+
             return View(project);
         }
 
@@ -72,7 +78,12 @@ namespace BugTrackingSystem.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(string id)
         {
-            var selectedProject = unitOfWork.Projects.Single(x => x.Id == id);
+            var selectedProject = unitOfWork.Projects.GetByID(id);
+
+            if (selectedProject == null)
+            {
+                return HttpNotFound("Project was not found");
+            }
 
             var viewModel = new EditProjectViewModel
             {
@@ -110,24 +121,6 @@ namespace BugTrackingSystem.Controllers
         public ActionResult Delete(string id)
         {
             return View();
-        }
-
-        // DELETE: Projects/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, FormCollection collection)
-        {
-            try
-            {
-                unitOfWork.Projects.Delete(id);
-                unitOfWork.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

@@ -39,42 +39,6 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
             return View(unitOfWork.Roles);
         }
 
-        public ActionResult Edit(string id)
-        {
-            return View(unitOfWork.Roles.GetByID(id));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IdentityRole role)
-        {
-            if (ModelState.IsValid)
-            {
-                unitOfWork.Roles.Update(role);
-                unitOfWork.Roles.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Create()
-        {
-            return View(new IdentityRole());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IdentityRole role)
-        {
-            if (ModelState.IsValid)
-            {
-                unitOfWork.Roles.Insert(role);
-                unitOfWork.Roles.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
-        }
-
         public ActionResult Details(string id)
         {
 

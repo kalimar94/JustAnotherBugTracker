@@ -30,5 +30,6 @@ namespace BugTrackingSystem.Data
         public IDbSet<TicketComment> TicketComments { get; set; }
 
         public IDbSet<Worklog> Worklogs { get; set; }
+
     }
 }

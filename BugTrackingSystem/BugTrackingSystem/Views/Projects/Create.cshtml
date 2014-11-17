@@ -16,9 +16,7 @@
         <h4>Project</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        @{Html.BeginForm();}
-        @Html.EditorForModel();
+        @Html.EditorForModel()
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

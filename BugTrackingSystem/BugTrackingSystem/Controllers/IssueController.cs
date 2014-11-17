@@ -22,6 +22,12 @@ namespace BugTrackingSystem.Controllers
         public ActionResult Details(string projectId, int issueId)
         {
             var issue = unitOfWork.Issues.GetByID(issueId);
+
+            if (issue == null)
+            {
+                return HttpNotFound("the issue was not found");
+            }
+
             return View(issue);
         }
 
@@ -87,22 +93,6 @@ namespace BugTrackingSystem.Controllers
             }
         }
 
-        // POST: Issue/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         [HttpPost]
         public ActionResult GetEditDataFor(string data)

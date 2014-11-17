@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using BugTrackingSystem.ViewModels.Worklog;
 
 namespace BugTrackingSystem.Controllers
 {
@@ -39,12 +40,12 @@ namespace BugTrackingSystem.Controllers
             var userId = User.Identity.GetUserId();
             var user = unitOfWork.Users.Single(x => x.Id == userId);
 
-            return PartialView(new Worklog { User = user });
+            return PartialView(new CreateWorklogViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int id, Worklog log)
+        public ActionResult Create(int id, CreateWorklogViewModel model)
         {
             try
             {
@@ -53,8 +54,14 @@ namespace BugTrackingSystem.Controllers
                 {
                     var userId = User.Identity.GetUserId();
 
-                    log.IssueId = id;
-                    log.UserId = userId;
+                    var log = new Worklog
+                    {
+                        Date = model.Date,
+                        HoursWorked = model.HoursWorked,
+                        Description = model.Description,
+                        UserId = userId,
+                        IssueId = id
+                    };
 
                     unitOfWork.WorkLogs.Insert(log);
                     unitOfWork.SaveChanges();
@@ -64,13 +71,13 @@ namespace BugTrackingSystem.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid model data");
-                    return View(log);
+                    return View(model);
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View();
+                return View(model);
             }
         }
     }
