@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace BugTrackingSystem.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "admins")]
     public class AdminHomeController : Controller
     {
         // GET: Administration/AdminHome

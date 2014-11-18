@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("styles", required:false)
+    @RenderSection("styles", required: false)
 
 </head>
 <body>
@@ -27,7 +27,10 @@
                     <li>@Html.ActionLink("Products", "Index", "Products", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Projects", "Index", "Projects", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("ServiceDesk", "Index", new { area = "ServiceDesk", controller = "ServiceDeskHome" })</li>
-                    <li>@Html.ActionLink("Administration", "Index", new { area = "Administration", controller = "AdminHome" })</li>
+                    @if (User.IsInRole("admins"))
+                    {
+                        <li>@Html.ActionLink("Administration", "Index", new { area = "Administration", controller = "AdminHome" })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

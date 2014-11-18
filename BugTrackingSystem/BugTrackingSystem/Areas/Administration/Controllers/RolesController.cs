@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace BugTrackingSystem.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "admins")]
     public class RolesController : Controller
     {
         private IBugTrackingData unitOfWork;
@@ -29,9 +30,9 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
         }
 
         public RolesController(IBugTrackingData unitOfwork)
-	    {
+        {
             this.unitOfWork = unitOfwork;
-	    }
+        }
 
         // GET: Administration/Roles
         public ActionResult Index()
@@ -44,7 +45,7 @@ namespace BugTrackingSystem.Areas.Administration.Controllers
 
             var viewModel = new UserRoleViewModel
             {
-                AvailableUsers = unitOfWork.Users.Select(x=> new SelectListItem{ Text = x.UserName, Value = x.Id}),
+                AvailableUsers = unitOfWork.Users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }),
                 Role = unitOfWork.Roles.GetByID(id),
                 NewUser = new User(),
                 UsersInRole = unitOfWork.Users.Including("Roles").Where(user => user.Roles.Any(role => role.RoleId == id))

@@ -3,6 +3,7 @@
 @model BugTrackingSystem.Models.Worklog
 
 
-<section class="worklog">
-     @Model.User.UserName has worked @Model.HoursWorked on @Model.Date
+<section class="panel panel-default">
+    <p class="panel-heading"> @Model.User.UserName has worked @Model.HoursWorked hours on @Model.Date </p>
+    <p class="panel-body"> @Model.Description </p>
 </section>

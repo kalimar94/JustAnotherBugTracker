@@ -1,10 +1,12 @@
 ﻿@model BugTrackingSystem.Models.TicketComment
 
-<section class="comment">
-    <p class="author"> Author: @Model.AuthorName </p>
-    <p class="author"> Email: @Model.AuthorEmail </p>
-    <p class="commentText">
-        @Model.CommentText
-    </p>
+<section class="comment panel panel-default">
+    <div class=" panel-heading">
+        <p class="author"> Author: @Model.AuthorName </p>
+        <p class="email"> Email: @Model.AuthorEmail </p>
+        <p class="commentText panel-body">
+            @Model.CommentText
+        </p>
+    </div>
 </section>
 

@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace BugTrackingSystem.Areas.Administration.Controllers
 {
+    [Authorize(Roles="admins")]
     public class AccountAdministrationController : Controller
     {
         private IRepository<User> users;

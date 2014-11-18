@@ -22,7 +22,7 @@
     }
 </script>
 
-@Html.AntiForgeryToken();
+@Html.AntiForgeryToken()
 
 <div class="editComment">
     <section class="comment form-horizontal">
@@ -30,11 +30,11 @@
         <p>
             <textarea class="form-control" > @Model.CommentText </textarea>
         </p>
-    </section>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button onclick="submitEdit($(this))" class="btn btn-default"> Save </button>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button onclick="submitEdit($(this))" class="btn btn-default"> Save </button>
+            </div>
         </div>
-    </div>
+    </section>
 </div>

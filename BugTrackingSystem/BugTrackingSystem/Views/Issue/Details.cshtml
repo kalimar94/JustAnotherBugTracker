@@ -7,7 +7,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Issue Details</h2>
+
+@if (User.IsInRole("admins"))
+{
+    @Html.ActionLink("Edit", "Edit", new { issueId = Model.Id, projectId = ViewContext.RouteData.Values["projectId"] }, new { @class="btn btn-primary" })
+}
 
 <div>
 
@@ -36,7 +41,6 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { issueId = Model.Id, projectId = ViewContext.RouteData.Values["projectId"] }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 

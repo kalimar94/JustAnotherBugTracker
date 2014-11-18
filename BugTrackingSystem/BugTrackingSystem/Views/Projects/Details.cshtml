@@ -9,13 +9,15 @@
 
 <div>
     <h4>Project: @Model.Id - @Model.Name</h4>
-    <p> Project Manager: @(Model.Manager==null?"None":Model.Manager.UserName) </p>
+    <p> Project Manager: @(Model.Manager == null ? "None" : Model.Manager.UserName) </p>
 
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { Class = "btn btn-primary" })
-    <hr />
+    @if (User.IsInRole("admins"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        <hr />
 
-    @Html.ActionLink("Create Issue", "Create", "Issue", new { projectId = ViewContext.RouteData.Values["id"] }, null)
-
+        @Html.ActionLink("Create Issue", "Create", "Issue", new { projectId = ViewContext.RouteData.Values["id"] }, new { Class = "btn btn-primary" })
+    }
 
     @if (Model.Issues == null || Model.Issues.Count == 0)
     {
@@ -44,14 +46,14 @@
                     <td> @issue.TypeName </td>
                     <td> @(issue.Assignee == null ? "Not assigned" : issue.Assignee.UserName) </td>
                     <td> @issue.Priority </td>
-                    <td> @Html.ActionLink("details", "Details", "Issue", new { projectId = Model.Id, issueId = issue.Id}, null) </td>
+                    <td> @Html.ActionLink("details", "Details", "Issue", new { projectId = Model.Id, issueId = issue.Id }, null) </td>
                 </tr>
             }
 
         </table>
     }
 
-    </div>
+</div>
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>

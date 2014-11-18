@@ -187,7 +187,6 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AccountAdministrationController.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminHomeController.cs" />
-    <Compile Include="Areas\Administration\Controllers\IssueAdministrationController.cs" />
     <Compile Include="Areas\Administration\Controllers\RolesController.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserRoleViewModel.cs" />
@@ -461,7 +460,6 @@
     <Content Include="Content\Kendo\images\kendoui.ttf" />
     <Content Include="Content\Kendo\images\kendoui.woff" />
     <Content Include="Areas\Administration\Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Areas\Administration\Views\IssueAdministration\Index.cshtml" />
     <Content Include="Areas\Administration\Views\AccountAdministration\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\AccountAdministration\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -552,6 +550,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Issue.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Task.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
+    <Content Include="Views\Products\DetailsData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

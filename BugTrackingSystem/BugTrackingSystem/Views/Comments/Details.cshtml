@@ -3,14 +3,17 @@
 @model BugTrackingSystem.Models.IssueComment
 
 
-<section class="comment">
-    <p class="author"> @Model.User.UserName </p>
-    <p class="commentText">
+
+<section class="comment panel panel-default">
+    <p class="author panel-heading"> @Model.User.UserName | @Model.CreatedOn </p>
+    <p class="commentText panel-body">
         @Model.CommentText
     </p>
 
     @if (User.Identity.GetUserId() == Model.UserId)
-    {        
-        <button class="editButton" onclick="var t = $(this);$.get('@Url.Action("Edit", "Comments", new { id = @Model.Id })', function (result) { t.parent('section').html(result) });"> Edit </button>
+    {
+        <div class="panel-footer">
+            <button class="editButton btn btn-default" onclick="var t = $(this);$.get('@Url.Action("Edit", "Comments", new { id = @Model.Id })', function (result) { t.closest('section').html(result) });"> Edit </button>
+        </div>
     }
 </section>

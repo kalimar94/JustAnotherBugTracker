@@ -31,10 +31,18 @@ namespace BugTrackingSystem.Controllers
         // GET: Product/Details/5
         public ActionResult Details(string id)
         {
+            return View(model:id);
+        }
+
+        [OutputCache(VaryByParam="id", Duration=5 * 60)]
+        [ChildActionOnly]
+        public ActionResult DetailsData(string id)
+        {
             var model = unitOfWork.Products.Including("Owner").Single(x => x.Id == id);
             return View(model);
         }
 
+        [Authorize(Roles = "admins")]
         // GET: Product/Create
         public ActionResult Create()
         {
@@ -48,6 +56,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Product/Create
         [HttpPost]
+        [Authorize(Roles = "admins")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(EditProductViewModel newProduct)
         {
@@ -69,6 +78,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Product/Edit/5
+        [Authorize(Roles = "admins")]
         public ActionResult Edit(string id)
         {
             var selectedProduct = unitOfWork.Products.Single(x => x.Id == id);
@@ -84,6 +94,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Product/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admins")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, EditProductViewModel editedProduct)
         {

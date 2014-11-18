@@ -71,13 +71,13 @@ namespace BugTrackingSystem.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid model data");
-                    return View(model);
+                    return View();
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(model);
+                return View();
             }
         }
     }

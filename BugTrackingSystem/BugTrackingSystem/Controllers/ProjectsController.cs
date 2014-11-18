@@ -43,6 +43,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Projects/Create
+         [Authorize(Roles = "admins")]
         public ActionResult Create()
         {
             var model = new EditProjectViewModel()
@@ -56,6 +57,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Projects/Create
         [HttpPost]
+        [Authorize(Roles = "admins")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(EditProjectViewModel newProject)
         {
@@ -76,6 +78,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         // GET: Projects/Edit/5
+         [Authorize(Roles = "admins")]
         public ActionResult Edit(string id)
         {
             var selectedProject = unitOfWork.Projects.GetByID(id);
@@ -97,6 +100,7 @@ namespace BugTrackingSystem.Controllers
 
         // POST: Projects/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admins")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, EditProjectViewModel projectData)
         {

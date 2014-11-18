@@ -15,7 +15,8 @@ namespace BugTrackingSystem.Data.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
-           // context.Roles.Add(new IdentityRole("admins"));
+            context.Roles.Add(new IdentityRole("admins"));
+            context.SaveChanges();
         }
     }
 }

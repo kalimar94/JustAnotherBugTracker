@@ -22,6 +22,6 @@ namespace BugTrackingSystem.Areas.Administration.ViewModels
 
         public bool EmailConfirmed { get; set; }
 
-        public IEnumerable<IdentityRole> Roles { get; set; }
+        public IEnumerable<IdentityUserRole> Roles { get; set; }
     }
 }

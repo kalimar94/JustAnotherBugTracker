@@ -1,0 +1,25 @@
+﻿@model BugTrackingSystem.Models.Product
+
+<h2>Product @Model.Id - @Model.Name  </h2>
+<p> Product owner: @(Model.Owner == null ? "None" : Model.Owner.UserName)</p>
+
+@if (User.IsInRole("admins"))
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+}
+
+
+<hr />
+
+<div id="productsData">
+    <h4> Products details: </h4>
+
+    <ul>
+        @foreach (var item in Model.Projects)
+        {
+            <li> @Html.ActionLink(string.Format("[{0}] {1}", item.Id, item.Name), "Details", "Projects", new { id = item.Id }, null) </li>
+        }
+    </ul>
+</div>
+
+Last Updated: @DateTime.Now
