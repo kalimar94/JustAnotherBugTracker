@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace BugTrackingSystem.Controllers
 {
+    [ValidateInput(false)]
     public class IssueController : Controller
     {
         private IBugTrackingData unitOfWork;
@@ -21,7 +22,7 @@ namespace BugTrackingSystem.Controllers
 
         public ActionResult Details(string projectId, int issueId)
         {
-            var issue = unitOfWork.Issues.GetByID(issueId);
+            var issue = unitOfWork.Issues.Including("Assignee").SingleOrDefault(x => x.Id == issueId);
 
             if (issue == null)
             {
@@ -84,7 +85,7 @@ namespace BugTrackingSystem.Controllers
                     unitOfWork.SaveChanges();
                 }
 
-                return RedirectToAction("Details", new {issueId = issueId, projectId = projectId});
+                return RedirectToAction("Details", new { issueId = issueId, projectId = projectId });
             }
             catch (Exception ex)
             {

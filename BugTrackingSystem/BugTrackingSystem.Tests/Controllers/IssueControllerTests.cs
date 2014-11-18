@@ -36,7 +36,8 @@ namespace BugTrackingSystem.Tests.Controllers
         {
             // arrange
             int issueId = 15;
-            Mock.Arrange(() => dataMock.Issues.GetByID(15)).Returns(new Bug { Name = "IssueName" });
+            IEnumerable<Issue> fakeIssues = new Issue[] { new Improvement { Id = 15, Assignee = new User() } };
+            Mock.Arrange(() => dataMock.Issues.Including("Assignee")).Returns(fakeIssues);
 
             // act
             var result = sut.Details(Arg.AnyString, issueId) as ViewResult;
@@ -44,27 +45,15 @@ namespace BugTrackingSystem.Tests.Controllers
             // assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result.Model, typeof(Issue));
+            Assert.AreEqual(issueId, (result.Model as Issue).Id);
         }
 
-        [TestMethod]
-        public void DetailsShouldRequestCorrectData()
-        {
-            // arrange
-            int issueId = 15;
-
-            // act
-            sut.Details(Arg.AnyString, issueId);
-
-            // assert
-            Mock.Assert(() => dataMock.Issues.GetByID(Arg.Matches<int>(arg => arg == issueId)));
-        }
 
         [TestMethod]
         public void DetailsShouldReturn404IfIssueDoesNotExist()
         {
             // arrange
             int issueId = 15;
-            Mock.Arrange(() => dataMock.Issues.GetByID(15)).Returns(null as Issue);
 
             // act
             var result = sut.Details(Arg.AnyString, issueId) as HttpNotFoundResult;

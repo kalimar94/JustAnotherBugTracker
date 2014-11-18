@@ -31,10 +31,10 @@ namespace BugTrackingSystem.Controllers
         // GET: Product/Details/5
         public ActionResult Details(string id)
         {
-            return View(model:id);
+            return View(model: id);
         }
 
-        [OutputCache(VaryByParam="id", Duration=5 * 60)]
+        [OutputCache(VaryByParam = "id", Duration = 2 * 60)]
         [ChildActionOnly]
         public ActionResult DetailsData(string id)
         {

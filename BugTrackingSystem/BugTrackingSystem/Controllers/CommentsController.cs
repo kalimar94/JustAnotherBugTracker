@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BugTrackingSystem.Controllers
 {
+    [ValidateInput(false)]
     public class CommentsController : Controller
     {
         IBugTrackingData unitOfWork;
